@@ -4,12 +4,6 @@
 .PHONY: all build test update-dds run clean
 
 
-sdf-auth:
-	sdf auth login aws --profile default
-	sdf auth login aws --profile default --default-region us-east-2
-
-sdf-run:
-	sdf run -e remote --show all
 
 
 # Build the Rust engine
