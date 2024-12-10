@@ -1,0 +1,75 @@
+# Metrics view YAML
+# Reference documentation: https://docs.rilldata.com/reference/project-files/dashboards
+# This file was generated using AI.
+
+version: 1
+type: metrics_view
+
+display_name: Monthly Testing Positive Trends Model Metrics
+model: dm_monthly_testing_positive_trends_model
+timeseries: ddse.pub.dm_monthly_testing_positive_trends.month
+
+dimensions:
+  - name: country_code
+    display_name: Country Code
+    column: country_code
+
+measures:
+  - name: total_monthly_tests_measure
+    display_name: Total Monthly Tests
+    expression: SUM(monthly_tests)
+    description: The total number of tests conducted in a month across all countries.
+    format_preset: humanize
+  - name: total_monthly_cases_measure
+    display_name: Total Monthly Cases
+    expression: SUM(monthly_cases)
+    description: The total number of positive cases identified in a month across all
+      countries.
+    format_preset: humanize
+  - name: average_monthly_tests_measure
+    display_name: Average Monthly Tests
+    expression: AVG(monthly_tests)
+    description: The average number of tests conducted per month across all countries.
+    format_preset: humanize
+  - name: average_monthly_cases_measure
+    display_name: Average Monthly Cases
+    expression: AVG(monthly_cases)
+    description: The average number of positive cases identified per month across
+      all countries.
+    format_preset: humanize
+  - name: max_monthly_tests_measure
+    display_name: Maximum Monthly Tests
+    expression: MAX(monthly_tests)
+    description: The maximum number of tests conducted in a single month across all
+      countries.
+    format_preset: humanize
+  - name: max_monthly_cases_measure
+    display_name: Maximum Monthly Cases
+    expression: MAX(monthly_cases)
+    description: The maximum number of positive cases identified in a single month
+      across all countries.
+    format_preset: humanize
+  - name: min_monthly_tests_measure
+    display_name: Minimum Monthly Tests
+    expression: MIN(monthly_tests)
+    description: The minimum number of tests conducted in a single month across all
+      countries.
+    format_preset: humanize
+  - name: min_monthly_cases_measure
+    display_name: Minimum Monthly Cases
+    expression: MIN(monthly_cases)
+    description: The minimum number of positive cases identified in a single month
+      across all countries.
+    format_preset: humanize
+  - name: average_monthly_positivity_rate_measure
+    display_name: Average Monthly Positivity Rate
+    expression: AVG(monthly_positivity_rate)
+    description: The average positivity rate of tests conducted per month across all
+      countries.
+    format_preset: humanize
+  - name: count_countries_measure
+    display_name: Count of Countries
+    expression: COUNT(DISTINCT country_code)
+    description: The number of distinct countries included in the dataset.
+    format_preset: humanize
+smallest_time_grain: month
