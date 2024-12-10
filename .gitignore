@@ -16,7 +16,3 @@ engine-rust/target
 
 #sdf
 transform/sdftarget
-
-# test
-sdf
-orchestration

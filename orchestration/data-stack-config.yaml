@@ -1,0 +1,94 @@
+# Data Stack Configuration
+version: "1.0"
+
+# Stack-wide configurations
+stack:
+  name: "covid-analysis"
+  description: "COVID-19 data analysis pipeline"
+  environment: "production"
+
+ingestion:
+  sources:
+    - name: "covid-raw-data"
+      type: "duckdb"
+      config:
+        query: "SELECT * FROM 's3://coviddata/covid_*.parquet'"
+        incremental: false
+    - name: "vaccination-data"
+      type: "duckdb"
+      config:
+        query: "SELECT * FROM public.vaccinations"
+        incremental: true
+        timestamp_column: "updated_at"
+
+transformations:
+  - name: "covid-aggregation"
+    depends_on: ["covid-raw-data"]
+    type: "sql"
+    config:
+      groupby: 
+        - "country"
+      aggregate:
+        cases: "sum"
+        deaths: "sum"
+  - name: "vaccination-metrics"
+    depends_on: ["vaccination-data"]
+    type: "sql"
+    config:
+      groupby:
+        - "country"
+        - "date"
+      aggregate:
+        total_vaccinations: "sum"
+        people_vaccinated: "sum"
+        people_fully_vaccinated: "sum"
+
+# Serving configurations
+serving:
+  - name: "covid-dashboard"
+    type: "markdown"
+    template: "github://covid/covid_dashboard.md"
+    data_sources:
+      - "covid-aggregation"
+      - "vaccination-metrics"
+    config:
+      refresh_interval: "24h"
+      access_control:
+        public: true
+        roles:
+          - admin
+          - analyst
+
+# Orchestration settings
+orchestration:
+  schedule: "0 0 * * *"  # Daily at midnight
+  retries: 3
+  timeout: "1h"
+  notifications:
+    on_failure:
+      - type: "email"
+        recipients: ["data-team@example.com"]
+    on_success:
+      - type: "slack"
+        channel: "#data-pipeline"
+
+# Monitoring and observability (example, not used yet)
+monitoring:
+  metrics:
+    - type: "data_freshness"
+    - type: "pipeline_duration"
+    - type: "error_rate"
+  alerts:
+    - name: "pipeline_failure"
+      condition: "error_rate > 0.1"
+      notify:
+        - "data-team@example.com"
+
+# Resource management (example, not used yet)
+resources:
+  compute:
+    max_memory: "8Gi"
+    max_cpu: "4"
+  storage:
+    type: "s3"
+    bucket: "coviddata"
