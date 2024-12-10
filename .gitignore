@@ -1,0 +1,20 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+
+#Rust
+engine-rust/target
+
+# test
+sdf
+
+#sdf
+transform/sdftarget

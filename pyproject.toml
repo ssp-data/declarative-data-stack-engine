@@ -1,0 +1,15 @@
+[project]
+name = "declarative-data-stack-engine"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "dagster-sdf>=0.25.3",
+    "dagster>=1.9.3",
+]
+
+[tool.uv]
+dev-dependencies = [
+    "dagster-webserver>=1.9.3",
+]
