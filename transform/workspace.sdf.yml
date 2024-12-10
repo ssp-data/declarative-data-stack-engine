@@ -1,9 +1,8 @@
 workspace:
-  name: hello_world
+  name: ddse
   edition: "1.3"
   description: >
-    Hello World! Let's analyze the world population.
-
+    dds stands for delclarative data stack engine.
     To build using the local population data (./local/pop.csv), run using the 'local' environment: 'sdf run -e local --show all'
 
     To pull data from s3 (s3://sdfdatasets), first authenticate SDF with a local AWS profile. This can be any AWS profile, as the S3 bucket is public.
@@ -30,7 +29,9 @@ environment:
   name: remote
 
   includes:
-    - path: remote
+    - path: stage
+    - path: core
+    - path: mart
 
   integrations:
     - provider: s3
@@ -38,3 +39,5 @@ environment:
       buckets:
         - uri: s3://sdfdatasets
           region: us-east-1
+        - uri: s3://covid19-lake
+          region: us-east-2

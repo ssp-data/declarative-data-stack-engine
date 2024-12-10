@@ -1,0 +1,22 @@
+-- 1. Daily Case Progression with 7-day Moving Average
+SELECT 
+    date,
+    country_code,
+    CAST(new_cases AS double) as new_cases,
+    CAST(
+        AVG(CAST(new_cases AS double)) OVER (
+            PARTITION BY country_code 
+            ORDER BY date 
+            RANGE BETWEEN INTERVAL '6' DAY PRECEDING AND CURRENT ROW
+        ) AS decimal(10,2)
+    ) as cases_7day_avg,
+    CAST(new_deaths AS double) as new_deaths,
+    CAST(
+        AVG(CAST(new_deaths AS double)) OVER (
+            PARTITION BY country_code 
+            ORDER BY date 
+            RANGE BETWEEN INTERVAL '6' DAY PRECEDING AND CURRENT ROW
+        ) AS decimal(10,2)
+    ) as deaths_7day_avg
+FROM covid_metrics_enriched
+ORDER BY date;
