@@ -3,5 +3,5 @@
 version = 3
 
 [[package]]
-name = "declarative-stack-engine"
+name = "ddse"
 version = "0.1.0"

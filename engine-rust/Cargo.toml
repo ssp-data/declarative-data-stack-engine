@@ -1,5 +1,5 @@
 [package]
-name = "declarative-stack-engine"
+name = "ddse"
 version = "0.1.0"
 edition = "2021"
 
