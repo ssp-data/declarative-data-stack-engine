@@ -5,8 +5,11 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "atproto>=0.0.56",
     "dagster-sdf>=0.25.3",
-    "dagster>=1.9.3",
+    "fastparquet>=2024.11.0",
+    "pandas>=2.2.3",
+    "pyarrow>=18.1.0",
 ]
 
 [tool.uv]

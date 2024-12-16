@@ -23,3 +23,12 @@ clean:
 # Install DDSE CLI (for development)
 install-dev:
 	cd engine-rust && cargo install --path .
+
+
+
+## DDSE:
+# Run with YAML config
+ddse run --config data-stack-config.yaml
+
+# Run with DSL syntax
+ddse run-dsl --expression 'run_stack(serve(template="github://covid/dashboard.md", data=transform(...)))'
