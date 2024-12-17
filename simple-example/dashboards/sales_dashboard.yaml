@@ -1,0 +1,8 @@
+charts:
+- name: Daily Sales Trend
+  query: SELECT * FROM sales_daily ORDER BY sale_date
+  type: line
+- name: Transaction Volume
+  query: SELECT sale_date, transaction_count FROM sales_daily
+  type: bar
+title: Sales Analytics

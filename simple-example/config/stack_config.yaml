@@ -1,0 +1,27 @@
+
+sources:
+  - table: raw_sales
+    
+transformations:
+  - output_table: sales_daily
+    source_table: raw_sales
+    group_by: 
+      - "date_trunc('day', sale_date)"
+    metrics:
+      - name: daily_sales
+        column: amount
+        agg: SUM
+      - name: transaction_count
+        column: '*'
+        agg: COUNT
+
+dashboard:
+  title: Sales Analytics
+  output_path: dashboards/sales_dashboard.yaml
+  visualizations:
+    - title: Daily Sales Trend
+      type: line
+      query: SELECT * FROM sales_daily ORDER BY sale_date
+    - title: Transaction Volume
+      type: bar
+      query: SELECT sale_date, transaction_count FROM sales_daily

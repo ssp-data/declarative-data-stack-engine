@@ -1,0 +1,4 @@
+charts:
+- name: Daily Sales
+  query: SELECT * FROM sales_daily ORDER BY sale_date
+title: Sales Dashboard
