@@ -1,0 +1,48 @@
+[package]
+name = "ddse"
+version = "0.1.0"
+edition = "2021"
+description = "Declarative Data Stack Engine"
+authors = ["Simon Späti <your.email@example.com>"]
+
+[dependencies]
+# CLI argument parsing
+clap = { version = "4.4", features = ["derive"] }
+
+# Serialization/Deserialization
+serde = { version = "1.0", features = ["derive"] }
+serde_yaml = "0.9"
+serde_json = "1.0"
+
+# Error handling
+anyhow = "1.0"
+thiserror = "1.0"
+
+# Async runtime (if needed)
+tokio = { version = "1.0", features = ["full"] }
+
+# File operations
+walkdir = "2.4"
+
+# Logging
+tracing = "0.1"
+tracing-subscriber = "0.3"
+
+# DSL parsing (not implemented yet)
+nom = "7.1"                  # For parsing DSL syntax
+logos = "0.13"              # For lexing/tokenization
+
+[dev-dependencies]
+# Testing
+pretty_assertions = "1.4"
+test-case = "3.3"
+
+[[bin]]
+name = "ddse"
+path = "src/main.rs"
+
+[lib]
+name = "ddse"
+path = "src/adapters/mod.rs"
+
+
