@@ -11,6 +11,8 @@ clean:
 
 compile:
 	sdf compile -e remote --show all
+lineage:
+	sdf lineage -e remote --show all
 
 run:
 	sdf run -e remote --show all
